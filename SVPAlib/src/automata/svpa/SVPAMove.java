@@ -3,12 +3,11 @@
  */
 package automata.svpa;
 
-import java.util.Stack;
-
 import org.sat4j.specs.TimeoutException;
-
 import theory.BooleanAlgebra;
 import utilities.Pair;
+
+import java.util.Stack;
 
 public abstract class SVPAMove<U,S> implements Cloneable{
 
@@ -37,6 +36,8 @@ public abstract class SVPAMove<U,S> implements Cloneable{
 	public abstract String toDotString();
 
 	public abstract S getWitness(BooleanAlgebra<U, S> ba) throws TimeoutException;
+
+	public abstract int countWitnesses(BooleanAlgebra<U, S> ba) throws TimeoutException;
 
 	public abstract boolean isEpsilonTransition();
 	

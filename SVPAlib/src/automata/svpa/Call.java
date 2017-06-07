@@ -3,20 +3,18 @@
  */
 package automata.svpa;
 
+import automata.svpa.TaggedSymbol.SymbolTag;
+import org.sat4j.specs.TimeoutException;
+import theory.BooleanAlgebra;
+import utilities.Pair;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 
-import org.sat4j.specs.TimeoutException;
-
-import automata.svpa.TaggedSymbol.SymbolTag;
-
-import theory.BooleanAlgebra;
-import utilities.Pair;
-
 public class Call<U,S> extends SVPAMove<U,S> {
 
-	Integer stackState;
+	public Integer stackState;
 	U guard;
 	
 	/**
@@ -103,5 +101,10 @@ public class Call<U,S> extends SVPAMove<U,S> {
 	public S getWitness(BooleanAlgebra<U, S> ba) throws TimeoutException {
 		return ba.generateWitness(guard);
 	}
-	
+
+	@Override
+	public int countWitnesses(BooleanAlgebra<U, S> ba) throws TimeoutException {
+		return ba.countWitnesses(guard);
+	}
+
 }

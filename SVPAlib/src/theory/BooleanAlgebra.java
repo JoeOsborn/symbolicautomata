@@ -6,13 +6,12 @@
  */
 package theory;
 
+import org.sat4j.specs.TimeoutException;
+import utilities.Pair;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
-
-import org.sat4j.specs.TimeoutException;
-
-import utilities.Pair;
 
 /**
  * BooleanAlgebra over the domain <code>S</code>
@@ -23,37 +22,36 @@ public abstract class BooleanAlgebra<P, S> {
 
 	/**
 	 * @return the predicate accepting only <code>s</code>
-	 * @throws TimeoutException 
 	 */
 	public abstract P MkAtom(S s);
 	
 	/**
 	 * @return the complement of <code>p</code>
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public abstract P MkNot(P p) throws TimeoutException;
 
 	/**
 	 * @return the disjunction of the predicates in <code>pset</code>
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public abstract P MkOr(Collection<P> pset) throws TimeoutException;
 
 	/**
 	 * @return the predicate <code>p1</code> or <code>p2</code>
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public abstract P MkOr(P p1, P p2) throws TimeoutException;
 
 	/**
 	 * @return the conjunction of the predicates in <code>pset</code>
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public abstract P MkAnd(Collection<P> pset) throws TimeoutException;
 
 	/**
 	 * @return the predicate <code>p1</code> and <code>p2</code>
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public abstract P MkAnd(P p1, P p2) throws TimeoutException;
 
@@ -69,7 +67,7 @@ public abstract class BooleanAlgebra<P, S> {
 
 	/**
 	 * @return true iff <code>p1</code> and <code>p2</code> are equivalent
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public abstract boolean AreEquivalent(P p1, P p2) throws TimeoutException;
 
@@ -99,12 +97,19 @@ public abstract class BooleanAlgebra<P, S> {
 	public abstract Pair<S, S> generateWitnesses(P p1) throws TimeoutException;
 
 	/**
+	 * @return the number of witnesses of the predicate <code>p1</code> if satisfiable, 0 otherwise, -1 if p has infinite witnesses or unimplemented
+	 * @throws TimeoutException If the solver times out
+	 */
+	public int countWitnesses(P p1) throws TimeoutException {
+		return -1;
+	}
+
+	/**
 	 * Given a set of <code>predicates</code>, returns all the satisfiable
 	 * Boolean combinations
 	 * 
 	 * @return a set of pairs (p,{i1,..,in}) where p is and ij is 0 or 1 base on
 	 *         whether pij is used positively or negatively
-	 * @throws TimeoutException 
 	 */
 	public Collection<Pair<P, ArrayList<Integer>>> GetMinterms(
 			ArrayList<P> predicates) {
@@ -123,7 +128,7 @@ public abstract class BooleanAlgebra<P, S> {
 	 * 
 	 * @return a set of pairs (p,{i1,..,in}) where p is and ij is 0 or 1 base on
 	 *         whether pij is used positively or negatively
-	 * @throws TimeoutException 
+	 * @throws TimeoutException If the solver times out
 	 */
 	public Collection<Pair<P, ArrayList<Integer>>> GetMinterms(
 			ArrayList<P> predicates, long timeout) throws TimeoutException {

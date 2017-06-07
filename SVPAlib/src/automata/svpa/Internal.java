@@ -104,4 +104,9 @@ public class Internal<U, S> extends SVPAMove<U, S> {
 	public S getWitness(BooleanAlgebra<U, S> ba) throws TimeoutException {
 		return ba.generateWitness(guard);
 	}
+
+	@Override
+	public int countWitnesses(BooleanAlgebra<U, S> ba) throws TimeoutException {
+		return ba.countWitnesses(guard);
+	}
 }

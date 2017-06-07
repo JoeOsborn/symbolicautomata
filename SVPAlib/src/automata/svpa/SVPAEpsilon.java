@@ -3,12 +3,10 @@
  */
 package automata.svpa;
 
-import java.util.Stack;
-
-
-
 import theory.BooleanAlgebra;
 import utilities.Pair;
+
+import java.util.Stack;
 
 public class SVPAEpsilon<U, S> extends SVPAMove<U, S> {
 
@@ -73,6 +71,11 @@ public class SVPAEpsilon<U, S> extends SVPAMove<U, S> {
 	@Override
 	public S getWitness(BooleanAlgebra<U, S> boolal) {
 		return null;
+	}
+
+	@Override
+	public int countWitnesses(BooleanAlgebra<U, S> boolal) {
+		return -1;
 	}
 
 }

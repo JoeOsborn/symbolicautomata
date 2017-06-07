@@ -7,14 +7,13 @@
  */
 package theory.svpa.equalityalgebra;
 
-import java.util.ArrayList;
-import java.util.Collection;
-
 import org.apache.commons.lang3.NotImplementedException;
 import org.sat4j.specs.TimeoutException;
-
 import theory.BooleanAlgebra;
 import utilities.Pair;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * CharSolver: an interval based solver for the theory of characters For binary
@@ -339,6 +338,22 @@ public class EqualityAlgebra<P,S> extends BooleanAlgebra<EqualityPredicate<P,S>,
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public int countWitnesses(EqualityPredicate<P, S> p) throws TimeoutException {
+		if (p instanceof UnaryPredicate<?,?>) {
+			return unarySolver.countWitnesses(((UnaryPredicate<P, S>) p).getPredicate());
+		}
+		BinaryEqualityPredicate<P,S> u = (BinaryEqualityPredicate<P,S>) p;
+		int count = unarySolver.countWitnesses(u.equals);
+		for(Pair<P,P> pair: u.notEqual){
+			P left = unarySolver.MkAnd(pair.first,unarySolver.MkNot(pair.second));
+			count += unarySolver.countWitnesses(left);
+			P right = unarySolver.MkAnd(pair.second,unarySolver.MkNot(pair.first));
+			count += unarySolver.countWitnesses(right);
+		}
+		return count;
 	}
 
 	@Override

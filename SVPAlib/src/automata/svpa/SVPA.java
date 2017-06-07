@@ -3,21 +3,13 @@
  */
 package automata.svpa;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Stack;
-
-import org.sat4j.specs.TimeoutException;
-
 import automata.AutomataException;
+import org.sat4j.specs.TimeoutException;
 import theory.BooleanAlgebra;
 import utilities.BitVecUtil;
 import utilities.Pair;
+
+import java.util.*;
 
 public class SVPA<U, S> extends VPAutomaton<U, S> {
 
@@ -1609,7 +1601,7 @@ public class SVPA<U, S> extends VPAutomaton<U, S> {
 		return false;
 	}
 
-	private boolean isFinalState(Integer state) {
+	public boolean isFinalState(Integer state) {
 		return finalStates.contains(state);
 	}
 

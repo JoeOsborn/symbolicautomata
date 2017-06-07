@@ -55,7 +55,7 @@ public class IntegerPair extends Pair<Integer,Integer> {
 		if (!(o instanceof Pair<?,?>))
 			return false;		
 		IntegerPair s = (IntegerPair) o;
-		return s.first==first && s.second==second;
+		return s.first.equals(first) && s.second.equals(second);
 	}
 	
 	public String toString(){
